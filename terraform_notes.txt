@@ -1,0 +1,85 @@
+Terraform Crash Course
+
+Terraform language - Hashicorp config language ( .tf extn )
+Provider - Terraform relies on plugins called "providers" to interact with cloud providers, SaaS providers, and other APIs.
+
+Command : terraform init - looks at our code/providers and download necessary plugins to interract with AWS.
+
+Command : terraform plan - Dry run ( Sanity check ) 
++ create resource 
+- delete resource
+
+Command : terraform apply - Run our code.
+
+Terraform is writen in a declaritive manner - We define how our entire Infra should look like.
+
+Command : terraform destroy - destroys every single resource
+
+VPC --> private isolated network within AWS network , each VPC is isolated from one another.
+
+Subnet --> 
+
+Terraform Folder Structure Explanied
+	.terraform folder is created when we initialize any plugins.
+	terraform.tfstate --> Represents all of the states. [ Never mess with the file ]
+
+
+	
+
+Questions --
+
+Where can I download the terraform exe from ?? teraform official website ?
+Access Creds ? Where do you get it from ?
+
+ 
+ 
+Command : terraform state list  --> List resources in the state
+Command : terraform state show aws_eip.one --> Show a resource in the state ( Detailed Output ) 
+Command : terraform refresh --> Good command to refresh and see logs
+Command : terraform destroy -target aws_instance.ec2-web-server  --> Destory only one resource
+Command : terraform apply -target aws_instance.ec2-web-server  --> Generates only one resource
+
+LOGGERS IN TERRAFORM ::
+
+output "server_public_ip" {
+  value = aws_eip.one.public_ip  # resource_name.id.property
+}
+
+
+Define variables in Terraform -- CASE 1
+
+
+variable "subnet_prefix" {
+  description = "CIDR block for the subnet"
+  #default 
+}
+
+
+# Assign a subnet to the newly creted VPC.
+resource "aws_subnet" "subnet-1" {
+  vpc_id     = aws_vpc.first-vpc.id
+  cidr_block = var.subnet_prefix #NOTE
+  availability_zone = "ap-south-1a"
+  tags = {
+    Name = "secure-env-subnet"
+  }
+}
+
+During execution , value is provided.
+
+Command : > terraform apply
+var.subnet_prefix
+  CIDR block for the subnet
+
+  Enter a value: 10.0.1.0/24
+
+Define variables in Terraform -- CASE 2  ( Command Line Argument ) 
+
+Command : terraform apply -var "subnet_prefix=10.0.100.0/24"
+
+Define variables in Terraform -- CASE 3  ( BEST WAY  define  terraform.tfvars ) 
+subnet_prefix = "10.0.200.0/24"
+
+If we rename terraform.tfvars to something like teravariables.tfvars , now we have to explicitely tell terraform to look for the file.
+
+Command : terraform apply -var-file teravariables.tfvars
