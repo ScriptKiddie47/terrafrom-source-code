@@ -1,6 +1,6 @@
-![image](https://user-images.githubusercontent.com/59485946/197515660-df7443e4-5887-4d92-be70-9a489124095e.png)
+### Lambda Fetches Data form Dynamo DB
 
-Lambda Fetches Data form Dynamo DB
+![image](https://user-images.githubusercontent.com/59485946/197515660-df7443e4-5887-4d92-be70-9a489124095e.png)
 
 Important Articles 
 
