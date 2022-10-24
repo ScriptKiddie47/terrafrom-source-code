@@ -8,7 +8,7 @@ Steps for creating a Lambda Auth
 1 . Create a Lambda Function within VPC
 
 A role got created
-
+```
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -28,12 +28,13 @@ A role got created
         }
     ]
 }
-
+```
 2. REST HTTP GW Created
 3. Connect to the lambda:
 	You are about to give API Gateway permission to invoke your Lambda function: arn:aws:lambda:ap-south-1:378475259575:function:l_f_Hello_1
 
 4. We see a resource based policy document attached to our Lambda Function
+```
 {
   "Version": "2012-10-17",
   "Id": "default",
@@ -54,7 +55,7 @@ A role got created
     }
   ]
 }
-
+```
 Before Deployment of the function we already have the rest_api_id ( search in terraform ) , this is also quite possibly the aws_api_gateway_rest_api id.
 
 5. Create the Auth Lambda Function and attached AWSLambdaVPCAccessExecutionRole in IAM.
@@ -62,7 +63,7 @@ Before Deployment of the function we already have the rest_api_id ( search in te
 7. Create the Authorizer : Lambda :  Token : authorizationToken
 8. API Gateway needs your permission to invoke your Lambda function: arn:aws:lambda:ap-south-1:378475259575:function:l_f_Hello_1_Authorizer
 9. See a policy document being attached
-
+```
 {
   "Version": "2012-10-17",
   "Id": "default",
@@ -83,5 +84,5 @@ Before Deployment of the function we already have the rest_api_id ( search in te
     }
   ]
 }
-
+```
 10. 
